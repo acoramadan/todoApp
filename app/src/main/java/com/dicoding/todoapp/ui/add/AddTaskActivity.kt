@@ -4,21 +4,38 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import com.dicoding.todoapp.R
+import com.dicoding.todoapp.data.Task
+import com.dicoding.todoapp.data.TaskRepository
+import com.dicoding.todoapp.ui.ViewModelFactory
+import com.dicoding.todoapp.ui.detail.DetailTaskViewModel
+import com.dicoding.todoapp.ui.list.TaskViewModel
 import com.dicoding.todoapp.utils.DatePickerFragment
 import java.text.SimpleDateFormat
 import java.util.*
 
 class AddTaskActivity : AppCompatActivity(), DatePickerFragment.DialogDateListener {
     private var dueDateMillis: Long = System.currentTimeMillis()
-
+    private lateinit var titleEdtText: EditText
+    private lateinit var descriptionEdtText: EditText
+    private lateinit var dueDateTv: TextView
+    private lateinit var factory: ViewModelFactory
+    private lateinit var taskViewModel: TaskViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_task)
-
         supportActionBar?.title = getString(R.string.add_task)
+
+        titleEdtText = findViewById(R.id.add_ed_title)
+        descriptionEdtText = findViewById(R.id.add_ed_description)
+        dueDateTv = findViewById(R.id.add_tv_due_date)
+        factory = ViewModelFactory.getInstance(this)
+        taskViewModel = ViewModelProvider(this,factory)[TaskViewModel::class.java]
 
     }
 
@@ -31,6 +48,15 @@ class AddTaskActivity : AppCompatActivity(), DatePickerFragment.DialogDateListen
         return when (item.itemId) {
             R.id.action_save -> {
                 //TODO 12 : Create AddTaskViewModel and insert new task to database
+
+                val task = Task(
+                    title =  titleEdtText.text.toString(),
+                    description = descriptionEdtText.text.toString(),
+                    dueDateMillis = dueDateMillis
+                )
+                taskViewModel.insertTask(task)
+                showToast("Berhasil menambahkan Task")
+                finish()
                 true
             }
             else -> super.onOptionsItemSelected(item)
@@ -41,7 +67,9 @@ class AddTaskActivity : AppCompatActivity(), DatePickerFragment.DialogDateListen
         val dialogFragment = DatePickerFragment()
         dialogFragment.show(supportFragmentManager, "datePicker")
     }
-
+    private fun showToast(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show()
+    }
     override fun onDialogDateSet(tag: String?, year: Int, month: Int, dayOfMonth: Int) {
         val calendar = Calendar.getInstance()
         calendar.set(year, month, dayOfMonth)

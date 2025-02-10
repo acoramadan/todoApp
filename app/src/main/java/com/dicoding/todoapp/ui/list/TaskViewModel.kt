@@ -42,4 +42,9 @@ class TaskViewModel(private val taskRepository: TaskRepository) : ViewModel() {
             taskRepository.deleteTask(task)
         }
     }
+    fun insertTask(task: Task) {
+        viewModelScope.launch {
+            taskRepository.insertTask(task)
+        }
+    }
 }
