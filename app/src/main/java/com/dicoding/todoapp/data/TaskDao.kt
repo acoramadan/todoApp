@@ -16,7 +16,7 @@ import com.dicoding.todoapp.utils.FilterUtils
 
 @Dao
 interface TaskDao {
-    @RawQuery
+    @RawQuery(observedEntities = [Task::class])
     fun getTasks(query: SupportSQLiteQuery): PagingSource<Int, Task>
 
     @Query("SELECT * FROM tasks WHERE id = :taskId ")
@@ -34,7 +34,7 @@ interface TaskDao {
     @Delete
     suspend fun deleteTask(task: Task)
 
-    @Update
+    @Query("UPDATE tasks SET completed = :completed WHERE id = :taskId")
     suspend fun updateCompleted(taskId: Int, completed: Boolean)
-    
+
 }

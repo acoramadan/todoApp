@@ -35,7 +35,7 @@ class TaskRepository(private val tasksDao: TaskDao) {
     fun getTasks(filter: TasksFilterType): LiveData<PagingData<Task>> {
         val query = FilterUtils.getFilteredQuery(filter)
         return Pager(
-            config = PagingConfig(10, enablePlaceholders = false),
+            config = PagingConfig(PAGE_SIZE, enablePlaceholders = PLACEHOLDERS),
             pagingSourceFactory = { tasksDao.getTasks(query) }
         ).liveData
     }

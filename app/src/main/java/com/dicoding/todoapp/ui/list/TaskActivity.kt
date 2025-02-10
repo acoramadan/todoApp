@@ -37,6 +37,11 @@ class TaskActivity : AppCompatActivity() {
             val addIntent = Intent(this, AddTaskActivity::class.java)
             startActivity(addIntent)
         }
+        recycler = findViewById(R.id.rv_task)
+        taskAdapter = TaskAdapter{ task, isChecked ->
+           taskViewModel.completeTask(task,isChecked)
+        }
+        recycler.adapter = taskAdapter
 
         //TODO 6 : Initiate RecyclerView with LayoutManager, Adapter, and update database when onCheckChange
 
@@ -52,6 +57,7 @@ class TaskActivity : AppCompatActivity() {
 
     private fun updateData(task: PagingData<Task>) {
         //TODO 7 : Submit PagingData to adapter
+        taskAdapter.submitData(lifecycle,task)
     }
 
     private fun showSnackBar(eventMessage: Event<Int>) {
