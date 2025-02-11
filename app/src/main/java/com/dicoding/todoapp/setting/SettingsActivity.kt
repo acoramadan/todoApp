@@ -1,14 +1,11 @@
 package com.dicoding.todoapp.setting
 
 import android.Manifest
-import android.app.Notification
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
-import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.SwitchPreference
 import androidx.work.ExistingPeriodicWorkPolicy
@@ -18,7 +15,6 @@ import androidx.work.workDataOf
 import com.dicoding.todoapp.R
 import com.dicoding.todoapp.notification.NotificationWorker
 import com.dicoding.todoapp.utils.Helper
-import com.dicoding.todoapp.utils.NOTIFICATION_CHANNEL_ID
 import java.util.concurrent.TimeUnit
 
 class SettingsActivity : AppCompatActivity() {
@@ -76,7 +72,7 @@ class SettingsActivity : AppCompatActivity() {
                     WorkManager.getInstance(requireContext())
                         .enqueueUniquePeriodicWork(
                             "dailyReminder",
-                            ExistingPeriodicWorkPolicy.REPLACE,
+                            ExistingPeriodicWorkPolicy.UPDATE,
                             notificationReq
                         )
                 } else {

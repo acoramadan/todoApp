@@ -1,13 +1,11 @@
     package com.dicoding.todoapp.notification
 
     import android.Manifest
-    import android.app.Notification
     import android.app.NotificationChannel
     import android.app.NotificationManager
     import android.app.PendingIntent
     import android.content.Context
     import android.content.Intent
-    import android.content.SharedPreferences
     import android.content.pm.PackageManager
     import android.os.Build
     import android.util.Log
@@ -15,7 +13,6 @@
     import androidx.core.app.NotificationCompat
     import androidx.core.app.NotificationManagerCompat
     import androidx.core.app.TaskStackBuilder
-    import androidx.core.content.ContextCompat.getString
     import androidx.preference.PreferenceManager
     import androidx.work.Worker
     import androidx.work.WorkerParameters
@@ -24,7 +21,6 @@
     import com.dicoding.todoapp.data.TaskRepository
     import com.dicoding.todoapp.ui.detail.DetailTaskActivity
     import com.dicoding.todoapp.utils.DateConverter
-    import com.dicoding.todoapp.utils.NOTIFICATION_CHANNEL_ID
     import com.dicoding.todoapp.utils.TASK_ID
 
     class NotificationWorker(ctx: Context, params: WorkerParameters) : Worker(ctx, params) {

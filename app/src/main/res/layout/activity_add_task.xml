@@ -43,7 +43,6 @@
         android:orientation="horizontal">
 
         <ImageButton
-            android:id="@+id/calendar_img"
             style="@style/Base.Widget.AppCompat.ImageButton"
             android:layout_width="50dp"
             android:layout_height="wrap_content"

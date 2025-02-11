@@ -83,7 +83,7 @@ abstract class TaskDatabase : RoomDatabase() {
     }
 
     private class DbCallback(private val context: Context)
-        : RoomDatabase.Callback() {
+        : Callback() {
         override fun onCreate(db: SupportSQLiteDatabase) {
             super.onCreate(db)
             CoroutineScope(Dispatchers.IO).launch {

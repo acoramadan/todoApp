@@ -34,7 +34,7 @@ class TaskActivity : AppCompatActivity() {
         setContentView(R.layout.activity_task)
         setSupportActionBar(findViewById(R.id.toolbar))
 
-        findViewById<FloatingActionButton>(R.id.fab).setOnClickListener { view ->
+        findViewById<FloatingActionButton>(R.id.fab).setOnClickListener { _ ->
             val addIntent = Intent(this, AddTaskActivity::class.java)
             startActivity(addIntent)
         }
@@ -49,9 +49,11 @@ class TaskActivity : AppCompatActivity() {
         recycler.adapter = taskAdapter
         recycler.layoutManager = LinearLayoutManager(this)
         taskViewModel.tasks.observe(this, Observer(this::updateData))
+        taskViewModel.snackbarText.observe(this)  { task ->
+            showSnackBar(task)
+        }
         initAction()
         //TODO 15 : Fixing bug : snackBar not show when task completed
-
     }
 
     private fun updateData(task: PagingData<Task>) {
