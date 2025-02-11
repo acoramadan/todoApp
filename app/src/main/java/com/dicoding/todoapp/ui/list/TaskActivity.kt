@@ -50,8 +50,6 @@ class TaskActivity : AppCompatActivity() {
         recycler.layoutManager = LinearLayoutManager(this)
         taskViewModel.tasks.observe(this, Observer(this::updateData))
         initAction()
-
-
         //TODO 15 : Fixing bug : snackBar not show when task completed
 
     }

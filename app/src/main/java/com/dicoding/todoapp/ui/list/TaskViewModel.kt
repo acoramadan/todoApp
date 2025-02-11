@@ -36,15 +36,10 @@ class TaskViewModel(private val taskRepository: TaskRepository) : ViewModel() {
             _snackbarText.value = Event(R.string.task_marked_active)
         }
     }
-
     fun deleteTask(task: Task) {
         viewModelScope.launch {
             taskRepository.deleteTask(task)
         }
     }
-    fun insertTask(task: Task) {
-        viewModelScope.launch {
-            taskRepository.insertTask(task)
-        }
-    }
+
 }
