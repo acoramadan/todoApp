@@ -10,7 +10,7 @@ data class Task(
     @PrimaryKey(autoGenerate = true)
     val id: Int = 0,
     @ColumnInfo("title")
-    val title: String,
+    val  title: String,
     @ColumnInfo("description")
     val description: String,
     @ColumnInfo("dueDate")
